@@ -1,0 +1,34 @@
+#!/bin/zsh
+#== Edits a script $HOME/bin
+source colors
+
+_PATH="$HOME/bin"
+
+function edit-script
+{
+    _FILE=$1
+
+    if [ -f $_PATH/$_FILE ]; then
+        touch $_PATH/$_FILE
+        $EDITOR $_PATH/$_FILE
+    else
+        echo "'${bld}${blu}${_FILE}${rst}' could not be found in ${bld}${red}${SCRIPT}${rst}"
+        ls --color=auto $_PATH
+    fi
+}
+
+case $1 in
+    xmonad) $EDITOR $HOME/etc/xmonad/xmonad.hs;;
+    mpd) $EDITOR $HOME/etc/mpd/conf;;
+    alias) $EDITOR $HOME/etc/zsh/alias;;
+    tmux) $EDITOR $HOME/etc/tmux/conf;;
+    xmonad) $EDITOR $HOME/etc/xmonad/xmonad.hs;;
+    zshrc) $EDITOR $HOME/etc/zsh/zshrc;;
+    zlogin) $EDITOR $HOME/etc/zsh/zlogin;;
+    XResources) $EDITOR $HOME/etc/X11/XResources;;
+    xinitrc) $EDITOR $HOME/etc/X11/xinitrc;;    
+    mkinitcpio) sudo $EDITOR /etc/mkinitcpio.conf;;
+    syslinux) sudo $EDITOR /boot/syslinux/syslinux.cfg;;
+    fstab) sudo $EDITOR /etc/fstab;;
+    *) edit-script $HOME/bin/$1;;
+esac

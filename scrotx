@@ -1,0 +1,16 @@
+#!/bin/zsh
+#== Takes a screenshot and opens it for viewing
+number=`sed -n "17 p" "$0"`
+keep=$number
+delay=0$1
+if [ $delay -lt 1 ];
+	then
+	delay=0
+fi
+len=${#number}
+while [ $len -lt 4 ];
+	do
+	number=0$number
+	len=$(($len+1))
+done
+scrot $number'.png' -d $delay -e 'mv $f $HOME/images/scrots & viewnior $HOME/images/scrots/$f' | sed -i "17s/$keep/$(($keep + 1))/" ${HOME}/bin/scrotx

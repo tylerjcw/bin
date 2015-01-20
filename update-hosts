@@ -1,0 +1,10 @@
+#!/usr/bin/bash -e
+#
+# pbrisbin 2012
+#
+###
+(( $UID )) && { echo 'you must be root' >&2; exit 1; }
+
+curl -# -o /etc/hosts.new 'http://someonewhocares.org/hosts/hosts'
+
+mv -v /etc/hosts{.new,}

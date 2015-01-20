@@ -1,0 +1,79 @@
+#!/usr/bin/env ruby
+#== Unified Minecraft Manager
+
+require 'net/http'
+require 'fileutils'
+require 'rake'
+
+instruction = ARGV[0]
+srv_dir = Dir.home << "/srv/minecraft"
+
+def send_cmd cmd
+    system "tmux send-keys -t term:mcserver '#{cmd}' C-m"
+    puts "Sent '#{cmd}' to server."
+end
+
+def link_win
+    system "tmux link-window -s term:mcserver -t scratch:$(( $(tmux ls | grep scratch | awk '{print $2}') + 1 ))"
+end
+
+def unlink_win
+    system "tmux unlink-window -t scratch:mcserver"
+end
+
+def start_srv dir
+    Dir.chdir dir do
+        puts "Starting Minecraft server in: " << Dir.pwd
+        system "tmux neww -t term -n mcserver 'java -Xmx2G -Xms1G -jar #{dir}/craftbukkit.jar'"
+    end
+end
+
+def stop_srv
+    puts "Stopping Minecraft server..."
+    system "tmux send-keys -t term:mcserver 'stop' C-m"
+end
+
+def update_srv dir
+    stop_srv
+    Dir.chdir dir do
+        puts "Backing up craftbukkit.jar..."
+        File.rename "craftbukkit.jar", "craftbukkit.jar.bak" if File::exists? "craftbukkit.jar"
+        puts "Updating craftbukkit (this may take a while)..."
+        system "wget -q 'http://cbukk.it/craftbukkit-dev.jar' -O 'craftbukkit.jar'"
+    end
+    start_srv dir
+end
+
+def backup_srv dir
+    stop_srv
+    Dir.chdir dir do
+        time = Time.now
+        time_str = "#{time.month}-#{time.day}-#{time.year}_#{time.hour}#{time.min}"
+        FileUtils.mkdir_p "backup/#{time_str}" unless Dir.exists? "backup/#{time_str}"
+        puts "Backing up Minecraft server..."
+        FileUtils.cp_r FileList['*'].exclude('backup'), "backup/#{time_str}"
+    end
+    start_srv dir
+end
+
+case instruction
+    when "start"
+        start_srv srv_dir
+    when "update"
+        update_srv srv_dir
+    when "stop"
+        stop_srv
+    when "link"
+        link_win
+    when "unlink"
+        unlink_win
+    when "backup"
+        backup_srv srv_dir
+    when "restart"
+        stop_srv
+        start_srv srv_dir
+    else
+        send_cmd instruction
+end
+
+        

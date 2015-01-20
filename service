@@ -1,0 +1,22 @@
+#!/bin/zsh
+
+action=$1
+
+if [[ $action == "help" ]] || [[ $action == "-h" ]] || [[ $action == "--help" ]] || [[ $action == "" ]]; then
+    echo "USAGE: service <action> <daemon1> <daemon2> ... <daemonn>"
+    echo
+    echo "Actions:"
+    echo "    start   - start a daemon (does not persist between boots)"
+    echo "    stop    - stop a daemon (does not persist between boots)"
+    echo "    restart - stop and start a running daemon"
+    echo "    enable  - Set a daemon to be started on boot"
+    echo "    disable - stop a daemon from starting on boot"
+    exit
+fi
+
+shift
+
+while [[ $1 != "" ]]; do
+    sudo systemctl $action $1.service
+    shift
+done

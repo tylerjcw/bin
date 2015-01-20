@@ -1,0 +1,6 @@
+#!/bin/zsh
+
+ln -s $HOME/etc/zsh/zshrc $HOME/.zshrc
+ln -s $HOME/etc/toprc $HOME/.toprc
+ln -s $HOME/etc/vimrc $HOME/.vimrc
+ln -s $HOME/etc/xinitrc $HOME/.xinitrc

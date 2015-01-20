@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+top -o -%CPU -b -n 1 | tail -n 1 | awk '{print $12" ("$9"%)"}'

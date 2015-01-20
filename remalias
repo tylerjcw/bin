@@ -1,0 +1,15 @@
+#!/bin/zsh
+#== Removes the specified alias from the aliases file
+
+if [ -z "$1" ]; then
+    echo "Must specify alias name."
+    return 0
+else
+    echo -n "Removing alias from aliases file... "
+    sed "/$1/d" $HOME/etc/zsh/alias.zsh > $HOME/etc/zsh/alias.tmp
+    mv $HOME/etc/zsh/alias.tmp $HOME/etc/zsh/alias.zsh
+    echo "${grn}success!${rst}"
+    echo -n "Source modified aliases file... "
+    source $HOME/etc/zsh/alias.zsh
+    echo "${grn}success!${rst}"
+fi

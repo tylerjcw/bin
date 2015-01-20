@@ -1,0 +1,83 @@
+#!/bin/bash
+# sns : (SchNellScript), do a basic script and chmod it quickly
+
+# --help : display help
+
+SNS_AUTOGEN="Rename-Me.sh"
+
+
+function sns()
+{
+echo "loading parameters... Generating script..."
+
+if [ ! -z "$1" ] && [ "$1" = --help ]
+then
+echo "Generate a basic script"
+echo "Generic name : $SNS_AUTOGEN"
+echo && exit
+fi
+
+# If name given, do not use default one.
+[ ! -z "$1" ] && SNS_AUTOGEN="$1"
+
+#model.
+cat << EOF > "${SNS_AUTOGEN}"
+#!/bin/env bash
+
+# By Knwld -- konwhaldanddrowette.deviantart.com
+# Feel free to change and customize! 
+# $1 : 
+
+
+# Options : 
+# --help : display...some help.
+#
+
+### Configuration  ###
+
+
+
+
+### Internal functions ###
+
+$1()
+{
+if [ -z "\$1" ] || [ "\$1" = --help ]
+then
+echo "$1 : "
+echo ""
+exit
+
+else
+echo "%Loading parameters "
+
+
+fi
+}
+
+
+### Run! ###
+
+$1 \$* #Run 
+
+EOF
+
+
+
+#simply chmodding it.
+echo -n "Done !"
+chmod +x "${SNS_AUTOGEN}"
+
+
+#Ask if the user prefer using a text editor. 
+#The default text editor is $EDITOR. If this variable is not defined, then it's nano. Nano is cool.
+echo "Is there any text editor you want to use? (if not: ${EDITOR:=nano})"
+read -p "$PS2" Text_Editor
+eval ${Text_Editor} "${SNS_AUTOGEN}" >/dev/null 2>/dev/null || eval ${EDITOR:=nano} "${SNS_AUTOGEN}"
+
+
+}
+
+
+# Run da script.
+sns $*

@@ -1,0 +1,4 @@
+#!/bin/zsh
+#== Displays number of unread emails
+
+wget --secure-protocol=TLSv1 --timeout=3 -t 1 -q -O - https://tyler.j.cw:979488Tjcw@mail.google.com/mail/feed/atom --no-check-certificate | grep 'fullcount' | sed -e 's/.*<fullcount>//;s/<\/fullcount>.*//' 2>/dev/null

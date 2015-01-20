@@ -1,0 +1,17 @@
+#!/bin/zsh
+#== Returns Directory count, and size
+
+if [ -f $HOME/scripts/colors ]; then
+	source $HOME/scripts/colors
+fi
+
+files="$bld$grn$(ls -l | grep "^-" | wc -l | tr -d " ")$rst"
+foldr="$bld$grn$(ls -l | grep "^d" | wc -l | tr -d " ")$rst"
+links="$bld$grn$(ls -l | grep "^l" | wc -l | tr -d " ")$rst"
+
+echo "${files} files" >  $HOME/tmp/filecount.txt
+echo "${foldr} dirs"  >> $HOME/tmp/filecount.txt
+echo "${links} links" >> $HOME/tmp/filecount.txt
+
+cat $HOME/tmp/filecount.txt | column -t
+rm $HOME/tmp/filecount.txt

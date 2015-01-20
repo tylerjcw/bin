@@ -1,0 +1,4 @@
+#!/bin/zsh
+#== Returns number of week in current month
+
+cal | nawk -v day="$(date +%d)" 'FNR > 2 {for( i=1 ; i <= NF ; i++ ) if ($i==day) { print FNR-2; exit} }'

@@ -1,0 +1,4 @@
+#!/usr/bin/zsh
+
+$HOME/bin/dvol -i 100
+$HOME/bin/mpdctl toggle

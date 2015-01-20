@@ -1,0 +1,68 @@
+#!/bin/zsh
+#== Personal help system
+
+source $HOME/bin/colors
+
+function myaliases #== Lists all system aliases in a nice, formatted manner. Used in @help
+{
+	echo ""
+	gawk 'BEGIN { printf("\33[1;7;32m%-15s\33[34m%-77s\n\33[0m"," Alias"," Description") }'
+	(cat $HOME/.dotfiles/lib/my_aliases.zsh | grep "=\"" | sort | gawk --field-separator="=\"" '{printf("\033[32m%-21s\033[36m%-80s\n\033[0m",$1,$2)}' | sed -e "s:alias::" -e "s:\"::g")
+}
+
+
+function myfunctions #== Lists all system functions in a nice, formatted manner. Used in @help
+{
+	echo ""
+	gawk 'BEGIN { printf("\33[1;7;32m%-20s\33[34m%-77s\33[0m"," Function"," Description") }'
+	cat $HOME/.dotfiles/lib/my_funcs.zsh | gawk --field-separator=" #== " '/^function/{ sub(/function /,""); printf(" \033[32m%-22s\033[36m%-77s\n\033[0m",$1,$2)}' | sort | sed -e 's/()//'
+}
+    
+function myscripts #== Lists all scripts in a nice, formatted manner. Used in @help
+{
+	echo ""
+	gawk 'BEGIN { printf("\33[1;7;32m%-15s\33[34m%-77s\n\33[0m"," Script"," Description") }'
+	(cd $HOME/bin && egrep -d skip '^#== ' * | gawk -F : '{ printf(" \033[32m%-15s\033[36m%-80s\n\033[0m",$1,$2)}' | sed -e "s/#== //")
+}
+
+
+function mykeys #== Lists all dwm keybindings in a nice, formatted manner. Used in @help
+{
+	gawk '
+	BEGIN {
+		printf("\n\33[1;7;32m%-21s\33[34m%-52s\n\33[0m"," Key"," Binding"," Description")
+		FS="[#:]"
+	}
+	/\/\/#/ {
+		if ((FNR % 2) == 0)
+			printf("\033[0;2;40m %-21s%-51s\033[0m\n",$2,$3)
+		else
+			printf(" %-21s%-50s\n",$2,$3)
+	}
+	END {
+		printf("\n")
+	}' $HOME/code/dwm/config.h
+}
+
+function filesystem
+{
+	echo ""
+	gawk 'BEGIN { printf("\33[1;7;32m%-15s\33[34m%-50s\n\33[0m"," Directory"," Description") }'
+	(cat $HOME/doc/txt/fhs | gawk -F , '{printf(" \033[32m%-16s\033[36m%-50s\n\033[0m",$1,$2)}')
+}
+
+case $1 in
+	aliases)    myaliases                ;;
+    alias)      myaliases                ;;
+	functions)  myfunctions              ;;
+    funcs)      myfunctions              ;;
+	scripts)    myscripts                ;;
+	keys)       mykeys                   ;;
+	fhs)	    filesystem               ;;
+	filesystem) filesystem		         ;;
+	colors)     ansi && cols && coltable ;;
+    cols)       ansi && cols && coltable ;;
+	system)     archey                   ;;
+    sys)        archey                   ;;
+	*)          echo -e "${bld}${red}*${rst}You did not enter valid input.\nUsage:\n\t@help <topic>\n\nWhere <topic> is one of:\n\taliases\n\tfunctions\n\tscripts\n\tkeys\n\tfilesystem\n\tcolors\n\tsystem" ;;
+esac

@@ -1,0 +1,19 @@
+#!/bin/zsh
+#== Displays an XResoures theme's colors
+
+file=$1
+apply=$2
+
+if [ -z $file ]
+then
+	/usr/bin/vendor_perl/ls++ $HOME/etc/X11/themes
+else
+	xrdb=( $(grep '^\*color[0-9]' $HOME/etc/X11/themes/$file | cut -c7- | sort -n | awk '{print $2}') )
+	fg=$(awk '/^\*foreground/ {print $2}' $HOME/etc/X11/themes/$file)
+	bg=$(awk '/^\*background/ {print $2}' $HOME/etc/X11/themes/$file)
+
+	(echo "^bg(#FFFFFF)^fg(#000000) Theme:^fg() ${file}  "
+	echo "^bg(${bg}) FG: ^fg(${fg})${fg} ^bg(${fg})  ^bg(${bg})^fg()  00: ^fg(${xrdb[1]})${xrdb[1]} ^bg(${xrdb[1]})  ^bg(${bg})^fg()  01: ^fg(${xrdb[2]})${xrdb[2]} ^bg(${xrdb[2]})  ^bg(${bg})^fg()  02: ^fg(${xrdb[3]})${xrdb[3]} ^bg(${xrdb[3]})  ^bg(${bg})^fg()  03: ^fg(${xrdb[4]})${xrdb[4]} ^bg(${xrdb[4]})  ^bg(${bg})^fg()  04: ^fg(${xrdb[5]})${xrdb[5]} ^bg(${xrdb[5]})  ^bg(${bg})^fg()  05: ^fg(${xrdb[6]})${xrdb[6]} ^bg(${xrdb[6]})  ^bg(${bg})^fg()  06: ^fg(${xrdb[7]})${xrdb[7]} ^bg(${xrdb[7]})  ^bg(${bg})^fg()  07: ^fg(${xrdb[8]})${xrdb[8]} ^bg(${xrdb[8]})  ^bg(${bg})^fg()^bg()"
+	echo "^bg(${bg}) BG: ^fg(${bg})${bg} ^bg(${bg})  ^bg(${bg})^fg()  08: ^fg(${xrdb[9]})${xrdb[9]} ^bg(${xrdb[9]})  ^bg(${bg})^fg()  09: ^fg(${xrdb[10]})${xrdb[10]} ^bg(${xrdb[10]})  ^bg(${bg})^fg()  10: ^fg(${xrdb[11]})${xrdb[11]} ^bg(${xrdb[11]})  ^bg(${bg})^fg()  11: ^fg(${xrdb[12]})${xrdb[12]} ^bg(${xrdb[12]})  ^bg(${bg})^fg()  12: ^fg(${xrdb[13]})${xrdb[13]} ^bg(${xrdb[13]})  ^bg(${bg})^fg()  13: ^fg(${xrdb[14]})${xrdb[14]} ^bg(${xrdb[14]})  ^bg(${bg})^fg()  14: ^fg(${xrdb[15]})${xrdb[15]} ^bg(${xrdb[15]})  ^bg(${bg})^fg()  15: ^fg(${xrdb[16]})${xrdb[16]} ^bg(${xrdb[16]})  ^bg(${bg})^fg()^bg()") \
+	| dzen2 -p -fn bitocra -l 2 -h 16 -bg "${bg}" -fg "${fg}" -ta l -e 'onstart=uncollapse;button1=exit;button3=exit;' &
+fi

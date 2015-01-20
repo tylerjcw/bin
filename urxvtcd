@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#== Starts urxvtc (and urxvtd if it's not running)
+
+urxvtc "$@" || {
+    urxvtd -q -o -f
+    urxvtc "$@"
+}

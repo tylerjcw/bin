@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+pacman -Qu | wc -l > $HOME/log/updates.log
