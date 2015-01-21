@@ -2,4 +2,4 @@
 
 set -e
 
-touch ~/.todo/"$*"
+touch $HOME/.todo/"$*"
