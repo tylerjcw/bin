@@ -1,7 +1,0 @@
-#!/bin/zsh
-#== Makes, Installs and Make Cleans bar
-
-cd $HOME/src/bar
-make
-make install
-make clean

@@ -3,7 +3,7 @@
 # graphics_utf [options] {character_set}
 # graphics_utf [options] {start_utf_hex}[-{end_utf_hex}]
 #
-#== Prints UTF character tables to standard output
+#== Prints UTF-8 character tables to standard output
 #
 # Options:   -n   no formating around charcaters
 #            -N   no formating, and no linefeeds either

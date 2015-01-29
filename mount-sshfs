@@ -1,0 +1,5 @@
+#!/bin/sh
+#== Mounts all remote sshfs filesystems (called from netctl hooks)
+
+mount /home/komrade/srv/storage
+mount /home/komrade/srv/minecraft

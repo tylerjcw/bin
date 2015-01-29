@@ -1,8 +1,0 @@
-#!/bin/zsh
-#== Makes, installs and make cleans toastwm
-
-cd $HOME/src/toastwm
-
-make
-make install
-make clean

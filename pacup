@@ -1,4 +1,0 @@
-#!/bin/zsh
-#== Simple script to check for updates
-
-sudo pacman -Sy &

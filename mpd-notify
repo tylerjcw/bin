@@ -1,8 +1,0 @@
-ARTIST="$(mpc -f "%artist%" current)"
-ALBUM="$(mpc -f "%album%" current)"
-TITLE="$(mpc -f "[%title%]|[%file%]" current)"
-
-ART="$HOME/.config/ario/covers/$(ls ~/.config/ario/covers | grep "$ARTIST" | grep "$ALBUM" | awk 'NR==1')"
-
-pkill notify-osd
-notify-send --hint=string:synchronous:mpd --urgency=low "$ARTIST" "$TITLE\n$ALBUM" -i "$ART"

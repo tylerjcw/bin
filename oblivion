@@ -1,6 +1,0 @@
-#!/bin/zsh
-
-export WINEDEBUG=fixme-all,err-all,warn-all,trace-all
-OBLIVION_DIR=/mount/Oblivion
-cd "${OBLIVION_DIR}"
-wine Oblivion.exe

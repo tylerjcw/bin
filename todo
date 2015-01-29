@@ -1,4 +1,5 @@
 #!/bin/zsh
+#== Simple todo list adhering to the unix philosophy
 
 set -e
 

@@ -1,20 +1,12 @@
 #!/bin/zsh
 #== Edits a script $HOME/bin
-source colors
-
 _PATH="$HOME/bin"
+_FILE=$1
 
-function edit-script
+function edit-script()
 {
-    _FILE=$1
-
-    if [ -f $_PATH/$_FILE ]; then
-        touch $_PATH/$_FILE
-        $EDITOR $_PATH/$_FILE
-    else
-        echo "'${bld}${blu}${_FILE}${rst}' could not be found in ${bld}${red}${SCRIPT}${rst}"
-        ls --color=auto $_PATH
-    fi
+    [[ -a ${_PATH}/${_FILE} ]] && $EDITOR ${_PATH}/${_FILE}
+    [[ ! -a ${_PATH}/${_FILE} ]] && echo "${fail}'${bld}${red}${_FILE}${rst}' could not be found in ${bld}${red}${_PATH}${rst}" && ls --color=auto $_PATH
 }
 
 case $1 in
@@ -30,5 +22,5 @@ case $1 in
     mkinitcpio) sudo $EDITOR /etc/mkinitcpio.conf;;
     syslinux) sudo $EDITOR /boot/syslinux/syslinux.cfg;;
     fstab) sudo $EDITOR /etc/fstab;;
-    *) edit-script $HOME/bin/$1;;
+    *) edit-script;;
 esac

@@ -1,0 +1,40 @@
+#!/bin/zsh
+#== Performs a gzipped backup of homedir to server
+source $HOME/.zshrc
+
+function bak()
+{
+	tar -cpjf /tmp/gondor.tar.bz2 -v $HOME \
+	--exclude-tag-all=.exclude \
+	--exclude=$HOMES/.dmenu_cache \
+	--exclude=$HOME/.esd_auth \
+	--exclude=$HOME/.gksu.lock \
+	--exclude=$HOME/.gtk-bookmarks \
+	--exclude=$HOME/.viminfo \
+	--exclude=$HOME/.volume \
+	--exclude=$HOME/.Xauthority \
+	--exclude=$HOME/.zcompdump \
+	--exclude=$HOME/.zdirs \
+	--exclude=$HOME/.zsh_history
+}
+
+if [[ -n netup ]]; then
+	echo -e "${pass} Active network connection detected"
+	if [[ $(testsshfs)='true' ]]; then
+		echo -e "${pass} Remote backup directory is mounted"
+		echo -e "${info} BZipping home directory... (this could take a while)"
+		bak &> /dev/null
+		echo -e "${pass} BZip2 Archive succsessfully created"
+		echo -e "${info} Copying to remote directory... (this could take a while)"
+		cp /tmp/gondor.tar.bz2 $HOME/srv/storage/gondor.tar.bz2
+		echo -e "${pass} Copied BZip2 Archive to remote directory"
+		rm /tmp/gondor.tar.bz2
+		echo -e "${pass} Removed local copy of archive"
+		echo -e "${pass} Backup Complete!"
+	else
+		echo -e "${fail} Remote backup directory is not mounted"
+		echo -e "${info} Try 'mount $HOME/srv/storage'"
+	fi
+else
+	echo -e "${fail} No active network connection detected"
+fi

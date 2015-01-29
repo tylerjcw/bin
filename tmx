@@ -1,5 +1,5 @@
 #!/bin/zsh
-
+#== Simple tmux session manager
 #
 # Modified TMUX start script from:
 #     http://forums.gentoo.org/viewtopic-t-836006-start-0.html

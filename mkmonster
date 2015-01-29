@@ -1,7 +1,0 @@
-#!/bin/zsh
-#== Makes, Installs, and Make Cleans monsterwm
-
-cd $HOME/src/monsterwm
-make
-sudo make install
-make clean

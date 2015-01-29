@@ -25,17 +25,23 @@ initializeANSI()
   reset="${esc}[0m"
 }
 
-# note in this first use that switching colors doesn't require a reset
-# first - the new color overrides the old one.
-
 initializeANSI
 
 cat << EOF
 
- ${reset}${redf}  ██  ██   ${reset}${boldon}${redf}██    ${reset}${greenf}  ██  ██   ${reset}${boldon}${greenf}██    ${reset}${yellowf}  ██  ██   ${reset}${boldon}${yellowf}██    ${reset}${bluef}  ██  ██   ${reset}${boldon}${bluef}██    ${reset}${purplef}  ██  ██   ${reset}${boldon}${purplef}██    ${reset}${cyanf}  ██  ██   ${reset}${boldon}${cyanf}██
- ${reset}${redf}██████████ ${reset}${boldon}${redf}██    ${reset}${greenf}██████████ ${reset}${boldon}${greenf}██    ${reset}${yellowf}██████████ ${reset}${boldon}${yellowf}██    ${reset}${bluef}██████████ ${reset}${boldon}${bluef}██    ${reset}${purplef}██████████ ${reset}${boldon}${purplef}██    ${reset}${cyanf}██████████ ${reset}${boldon}${cyanf}██
- ${reset}${redf}  ██${boldon}██${boldoff}██   ${reset}${boldon}${redf}██    ${reset}${greenf}  ██${boldon}██${boldoff}██   ${reset}${boldon}${greenf}██    ${reset}${yellowf}  ██${boldon}██${boldoff}██   ${reset}${boldon}${yellowf}██    ${reset}${bluef}  ██${boldon}██${boldoff}██   ${reset}${boldon}${bluef}██    ${reset}${purplef}  ██${boldon}██${boldoff}██   ${reset}${boldon}${purplef}██    ${reset}${cyanf}  ██${boldon}██${boldoff}██   ${reset}${boldon}${cyanf}██
- ${reset}${redf}██████████       ${reset}${greenf}██████████       ${reset}${yellowf}██████████       ${reset}${bluef}██████████       ${reset}${purplef}██████████       ${reset}${cyanf}██████████   
- ${reset}${redf}  ██  ██   ${reset}${boldon}${redf}██    ${reset}${greenf}  ██  ██   ${reset}${boldon}${greenf}██    ${reset}${yellowf}  ██  ██   ${reset}${boldon}${yellowf}██    ${reset}${bluef}  ██  ██   ${reset}${boldon}${bluef}██    ${reset}${purplef}  ██  ██   ${reset}${boldon}${purplef}██    ${reset}${cyanf}  ██  ██   ${reset}${boldon}${cyanf}██ 
- ${reset}
+              ${reset}${blackf}|               |               |               |               |${reset}
+   ${redf}█     █${reset}    ${blackf}|${reset}    ${greenf}█     █${reset}    ${blackf}|${reset}    ${yellowf}█     █${reset}    ${blackf}|${reset}    ${bluef}█     █${reset}    ${blackf}|${reset}    ${purplef}█     █${reset}    ${blackf}|${reset}    ${cyanf}█     █${reset}
+   ${redf}███████${reset}    ${blackf}|${reset}    ${greenf}███████${reset}    ${blackf}|${reset}    ${yellowf}███████${reset}    ${blackf}|${reset}    ${bluef}███████${reset}    ${blackf}|${reset}    ${purplef}███████${reset}    ${blackf}|${reset}    ${cyanf}███████${reset}
+ ${redf}███${boldon}${redb}██${reset}${redf}█${boldon}${redb}██${reset}${redf}███${reset}  ${blackf}|${reset}  ${greenf}███${boldon}${greenb}██${reset}${greenf}█${boldon}${greenb}██${reset}${greenf}███${reset}  ${blackf}|${reset}  ${yellowf}███${boldon}${yellowb}██${reset}${yellowf}█${boldon}${yellowb}██${reset}${yellowf}███${reset}  ${blackf}|${reset}  ${bluef}███${boldon}${blueb}██${reset}${bluef}█${boldon}${blueb}██${reset}${bluef}███${reset}  ${blackf}|${reset}  ${purplef}███${boldon}${purpleb}██${reset}${purplef}█${boldon}${purpleb}██${reset}${purplef}███${reset}  ${blackf}|${reset}  ${cyanf}███${boldon}${cyanb}██${reset}${cyanf}█${boldon}${cyanb}██${reset}${cyanf}███${reset}
+  ${redf}████${boldon}${redb}█${reset}${redf}████${reset}   ${blackf}|${reset}   ${greenf}████${boldon}${greenb}█${reset}${greenf}████${reset}   ${blackf}|${reset}   ${yellowf}████${boldon}${yellowb}█${reset}${yellowf}████${reset}   ${blackf}|${reset}   ${bluef}████${boldon}${blueb}█${reset}${bluef}████${reset}   ${blackf}|${reset}   ${purplef}████${boldon}${purpleb}█${reset}${purplef}████${reset}   ${blackf}|${reset}   ${cyanf}████${boldon}${cyanb}█${reset}${cyanf}████${reset}
+  ${redf}█ █ ${boldon}█${reset} ${redf}█ █${reset}   ${blackf}|${reset}   ${greenf}█ █ ${boldon}█${reset} ${greenf}█ █${reset}   ${blackf}|${reset}   ${yellowf}█ █ ${boldon}█${reset} ${yellowf}█ █${reset}   ${blackf}|${reset}   ${bluef}█ █ ${boldon}█${reset} ${bluef}█ █${reset}   ${blackf}|${reset}   ${purplef}█ █ ${boldon}█${reset} ${purplef}█ █${reset}   ${blackf}|${reset}   ${cyanf}█ █ ${boldon}█${reset} ${cyanf}█ █${reset}
+    ${redf}█   █${reset}     ${blackf}|${reset}     ${greenf}█   █${reset}     ${blackf}|${reset}     ${yellowf}█   █${reset}     ${blackf}|${reset}     ${bluef}█   █${reset}     ${blackf}|${reset}     ${purplef}█   █${reset}     ${blackf}|${reset}     ${cyanf}█   █${reset}
+              ${blackf}|               |               |               |               |${reset}
 EOF
+
+#${reset}${redf}  ██  ██   ${reset}${boldon}${redf}██    ${reset}${greenf}  ██  ██   ${reset}${boldon}${greenf}██    ${reset}${yellowf}  ██  ██   ${reset}${boldon}${yellowf}██    ${reset}${bluef}  ██  ██   ${reset}${boldon}${bluef}██    ${reset}${purplef}  ██  ██   ${reset}${boldon}${purplef}██    ${reset}${cyanf}  ██  ██   ${reset}${boldon}${cyanf}██
+#${reset}${redf}██████████ ${reset}${boldon}${redf}██    ${reset}${greenf}██████████ ${reset}${boldon}${greenf}██    ${reset}${yellowf}██████████ ${reset}${boldon}${yellowf}██    ${reset}${bluef}██████████ ${reset}${boldon}${bluef}██    ${reset}${purplef}██████████ ${reset}${boldon}${purplef}██    ${reset}${cyanf}██████████ ${reset}${boldon}${cyanf}██
+#${reset}${redf}  ██${boldon}██${boldoff}██   ${reset}${boldon}${redf}██    ${reset}${greenf}  ██${boldon}██${boldoff}██   ${reset}${boldon}${greenf}██    ${reset}${yellowf}  ██${boldon}██${boldoff}██   ${reset}${boldon}${yellowf}██    ${reset}${bluef}  ██${boldon}██${boldoff}██   ${reset}${boldon}${bluef}██    ${reset}${purplef}  ██${boldon}██${boldoff}██   ${reset}${boldon}${purplef}██    ${reset}${cyanf}  ██${boldon}██${boldoff}██   ${reset}${boldon}${cyanf}██
+#${reset}${redf}██████████       ${reset}${greenf}██████████       ${reset}${yellowf}██████████       ${reset}${bluef}██████████       ${reset}${purplef}██████████       ${reset}${cyanf}██████████   
+#${reset}${redf}  ██  ██   ${reset}${boldon}${redf}██    ${reset}${greenf}  ██  ██   ${reset}${boldon}${greenf}██    ${reset}${yellowf}  ██  ██   ${reset}${boldon}${yellowf}██    ${reset}${bluef}  ██  ██   ${reset}${boldon}${bluef}██    ${reset}${purplef}  ██  ██   ${reset}${boldon}${purplef}██    ${reset}${cyanf}  ██  ██   ${reset}${boldon}${cyanf}██ 
+#${reset}

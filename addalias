@@ -1,23 +1,22 @@
 #!/bin/zsh
 #== Adds the specified alias to the aliases file
-
-source $HOME/bin/colors
+ALIAS_F=$ZSHDIR/alias.zsh
 
 if [ -z "$1" ]; then
-	echo "Must specify an alias name."
+	echo -e "[${red}error${rst}]No alias name specified"
 	return 0
 else
 	if [ -z "$2" ]; then
-		echo "Must specify an alias."
+		echo -e "[${red}error${rst}]No alias body specified"
 		return 0
 	else
-		if [ -f $HOME/etc/zsh/alias ]; then
-            echo -n "Add alias to aliases file..."
-			echo alias $1="\"$2\"" >> $HOME/etc/alias.zsh
-            echo " ${grn}success!${rst}"
-            echo -n "Source modified aliases file..."
-            source $HOME/etc/zsh/alias
-			echo " ${grn}success!${rst}"
+		if [ -f $ALIAS_F ]; then
+            echo alias $1="\"$2\"" >> $ALIAS_F
+            echo -e "[${grn}success${rst}]Add alias to aliases file"
+            source $ALIAS_F
+			echo -e "[${grn}success${rst}]Source modified aliases file"
+		else
+			echo -e "[${red}error${rst}]Could not find alias file, please check configuration."
 		fi
 	fi
 fi

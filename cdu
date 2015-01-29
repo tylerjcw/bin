@@ -1,5 +1,5 @@
 #! /usr/bin/perl -w
-#== Color Disk Usage
+#== Curses Disk Usage
 
 
 use strict;

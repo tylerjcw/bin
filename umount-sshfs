@@ -1,0 +1,5 @@
+#!/bin/sh
+#== Unmounts all remote sshfs filesystems (called from netctl hooks)
+
+umount /home/komrade/srv/storage
+umount /home/komrade/srv/minecraft

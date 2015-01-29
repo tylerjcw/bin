@@ -1,4 +1,5 @@
 #!/bin/zsh
+#== Returns list of 20 most recent unread GMails
 # Script to check for new gmail messages and launch (Icedove) Thumderbird
 # Written by hip0 based on a one liner script suggeted by 
 # http://ihaveapc.com/2012/03/how-to-quickly-check-your-unread-gmail-from-linux-mint-ubuntu-terminal/
