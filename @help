@@ -1,7 +1,6 @@
 #!/bin/zsh
 #== Personal help system
 source $ZSHDIR/funcs.zsh
-source $ZSHDIR/colors.zsh
 
 function myaliases #== Lists all system aliases in a nice, formatted manner. Used in @help
 {

@@ -2,6 +2,9 @@
 #== Performs a gzipped backup of homedir to server
 source $HOME/.zshrc
 
+BAK_DIR=$HOME/srv/storage
+ARCHIVE=gondor.tar.bz2
+
 function bak()
 {
 	tar -cpjf /tmp/gondor.tar.bz2 -v $HOME \
@@ -18,7 +21,7 @@ function bak()
 	--exclude=$HOME/.zsh_history
 }
 
-if [[ -n netup ]]; then
+if [[ $(netup)='true' ]]; then
 	echo -e "${pass} Active network connection detected"
 	if [[ $(testsshfs)='true' ]]; then
 		echo -e "${pass} Remote backup directory is mounted"
@@ -26,9 +29,9 @@ if [[ -n netup ]]; then
 		bak &> /dev/null
 		echo -e "${pass} BZip2 Archive succsessfully created"
 		echo -e "${info} Copying to remote directory... (this could take a while)"
-		cp /tmp/gondor.tar.bz2 $HOME/srv/storage/gondor.tar.bz2
+		cp /tmp/$ARCHIVE $BAK_DIR/$ARCHIVE
 		echo -e "${pass} Copied BZip2 Archive to remote directory"
-		rm /tmp/gondor.tar.bz2
+		rm /tmp/$ARCHIVE
 		echo -e "${pass} Removed local copy of archive"
 		echo -e "${pass} Backup Complete!"
 	else

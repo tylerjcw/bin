@@ -1,0 +1,6 @@
+#!/bin/zsh
+#== Gets number of pacman updates and writes it to a file to be read by dwmstatus
+
+echo -e "Please wait, updating ${blu}pacman${rst} repos..."
+sudo pacman -Sy &> $HOME/log/pacman.log
+sudo pacman -Qu | wc -l > $HOME/log/updates.log
