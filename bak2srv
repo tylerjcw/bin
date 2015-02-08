@@ -2,6 +2,10 @@
 #== Performs a gzipped backup of homedir to server
 source $HOME/.zshrc
 
+if [ -r "$HOME/.dbus/Xdbus" ]; then
+  . "$HOME/.dbus/Xdbus"
+fi
+
 BAK_DIR=$HOME/srv/storage
 ARCHIVE=gondor.tar.bz2
 
@@ -13,6 +17,7 @@ function bak()
 	--exclude=$HOME/.esd_auth \
 	--exclude=$HOME/.gksu.lock \
 	--exclude=$HOME/.gtk-bookmarks \
+	--exclude $HOME/video
 	--exclude=$HOME/.viminfo \
 	--exclude=$HOME/.volume \
 	--exclude=$HOME/.Xauthority \
@@ -26,6 +31,7 @@ if [[ $(netup)='true' ]]; then
 	if [[ $(testsshfs)='true' ]]; then
 		echo -e "${pass} Remote backup directory is mounted"
 		echo -e "${info} BZipping home directory... (this could take a while)"
+		notify-send "Backup" "Home directory backup in progress..."
 		bak &> /dev/null
 		echo -e "${pass} BZip2 Archive succsessfully created"
 		echo -e "${info} Copying to remote directory... (this could take a while)"
@@ -34,10 +40,13 @@ if [[ $(netup)='true' ]]; then
 		rm /tmp/$ARCHIVE
 		echo -e "${pass} Removed local copy of archive"
 		echo -e "${pass} Backup Complete!"
+		notify-send "Backup" "Home directory backup complete."
 	else
 		echo -e "${fail} Remote backup directory is not mounted"
 		echo -e "${info} Try 'mount $HOME/srv/storage'"
-	fi
+		notify-send "Backup" "Home directory backup failed.\nCould not find backup directory."
+    fi
 else
 	echo -e "${fail} No active network connection detected"
+	notify-send "Backup" "Home directory backup failed.\nNo active network detected."
 fi

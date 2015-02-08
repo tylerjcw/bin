@@ -1,0 +1,11 @@
+#!/bin/bash
+#== Toggles IBM ThinkLight on/off
+
+status=$(awk '/^status:/{print $2}' /proc/acpi/ibm/light)
+
+case $status in
+    "on")
+        echo off > /proc/acpi/ibm/light;;
+    "off")
+        echo on > /proc/acpi/ibm/light;;
+esac

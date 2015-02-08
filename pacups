@@ -1,6 +1,20 @@
 #!/bin/zsh
 #== Gets number of pacman updates and writes it to a file to be read by dwmstatus
+source $HOME/.zshrc
 
-echo -e "Please wait, updating ${blu}pacman${rst} repos..."
-sudo pacman -Sy &> $HOME/log/pacman.log
-sudo pacman -Qu | wc -l > $HOME/log/updates.log
+if [ -r "$HOME/.dbus/Xdbus" ]; then
+  . "$HOME/.dbus/Xdbus"
+fi
+
+if [[ $(netup)='true' ]]; then
+	echo -e "${pass} active network connection detected"
+	echo -e "${info} updating pacman repos..."
+	sudo pacman -Sy &> $HOME/log/pacman.log
+	sudo pacman -Qu | wc -l > $HOME/log/updates.log
+	ups=$(cat $HOME/log/updates.log)
+	echo "${info} ${ylw}${ups}${rst} updates found"
+	notify-send "pacman" "${ups} new package updates found"
+else
+	echo -e "${fail} No network detected"
+	notify-send "pacman" "no active network dtected, update check failed"
+fi

@@ -1,0 +1,4 @@
+#!/bin/zsh
+#== Enables certain features of IBM ThinkPads (requires sudo)
+
+echo 0xffffffff > /proc/acpi/ibm/hotkey
